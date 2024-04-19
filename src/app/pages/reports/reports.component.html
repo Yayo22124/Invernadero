@@ -1,0 +1,59 @@
+<main class="m-3">
+  <h1 class="mb-2">Panel de Reportes</h1>
+  <app-components-card card-title="Crear Nuevo Reporte">
+    <form [formGroup]="reportForm" class="flex flex-col mt-2">
+      <mat-form-field>
+        <mat-label>Nombre</mat-label>
+        <input matInput type="text" formControlName="nombre"/>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Usuario</mat-label>
+        <input matInput type="number" formControlName="idUsuario"/>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Fecha</mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="fecha">
+        <mat-hint>MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Observaciones</mat-label>
+        <input matInput type="text" formControlName="observaciones"/>
+      </mat-form-field>
+      <button mat-flat-button color="accent" (click)="createReport()">Guardar</button>
+    </form>
+  </app-components-card>
+
+  <h2 class="mt-2">Reportes</h2>
+  <div class="grid grid-cols-4  gap-2">
+    @for (report of reportsList; track $index) {
+      <app-components-card class="col-span-2" [card-title]="report.id.toString()">
+        <ul class="list-disc [&>li>strong]:font-medium mb-2">
+          <li><strong>Nombre:</strong> {{ report.nombre }}</li>
+          <li><strong>Usuario:</strong> {{ report.idUsuario }}</li>
+          <li><strong>Fecha:</strong> {{ report.fecha }}</li>
+          <li><strong>Observaciones:</strong> {{ report.observaciones }}</li>
+        </ul>
+        <div class="flex gap-2">
+          <button mat-raised-button color="primary" (click)="openDialog( report )">
+            <mat-icon>
+              mode_edit
+            </mat-icon>
+            Editar
+          </button>
+          <button mat-raised-button color="warn" (click)="deleteReport(report.id)">
+            <mat-icon>
+              delete
+            </mat-icon>
+            Borrar
+          </button>
+        </div>
+      </app-components-card>
+    } @empty {
+      <app-components-card card-title="No hay usuarios registrados." class="col-span-4" />
+    }
+
+  </div>
+
+</main>

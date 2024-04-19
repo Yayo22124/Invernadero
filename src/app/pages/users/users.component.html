@@ -1,0 +1,56 @@
+<main class="m-3">
+  <h1 class="mb-2">Panel de Usuarios</h1>
+  <app-components-card card-title="Crear Nuevo Usuario">
+    <form [formGroup]="userForm" class="flex flex-col mt-2">
+      <mat-form-field>
+        <mat-label>Nombre</mat-label>
+        <input matInput type="text" formControlName="nombre"/>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Apellido Paterno</mat-label>
+        <input matInput type="text" formControlName="apellidoPaterno"/>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Apellido Materno</mat-label>
+        <input matInput type="text" formControlName="apellidoMaterno"/>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Tipo</mat-label>
+        <input matInput type="text" formControlName="tipo"/>
+      </mat-form-field>
+      <button mat-flat-button color="accent" (click)="createUser()">Guardar</button>
+    </form>
+  </app-components-card>
+
+  <h2 class="mt-2">Usuarios</h2>
+  <div class="grid grid-cols-4  gap-2">
+    @for (user of usersList; track $index) {
+      <app-components-card class="col-span-2" [card-title]="user.id.toString()">
+        <ul class="list-disc [&>li>strong]:font-medium mb-2">
+          <li><strong>Nombre:</strong> {{ user.nombre }}</li>
+          <li><strong>Apellido Paterno:</strong> {{ user.apellidoPaterno }}</li>
+          <li><strong>Apellido Materno:</strong> {{ user.apellidoMaterno }}</li>
+          <li><strong>Tipo:</strong> {{ user.tipo }}</li>
+        </ul>
+        <div class="flex gap-2">
+          <button mat-raised-button color="primary" (click)="openDialog( user )">
+            <mat-icon>
+              mode_edit
+            </mat-icon>
+            Editar
+          </button>
+          <button mat-raised-button color="warn" (click)="deleteUser(user.id)">
+            <mat-icon>
+              delete
+            </mat-icon>
+            Borrar
+          </button>
+        </div>
+      </app-components-card>
+    } @empty {
+      <app-components-card card-title="No hay usuarios registrados." class="col-span-4" />
+    }
+
+  </div>
+
+</main>

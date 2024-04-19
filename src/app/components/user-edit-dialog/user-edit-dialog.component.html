@@ -1,0 +1,25 @@
+<h2 mat-dialog-title>Editar Usuario {{ userData.id }}</h2>
+<mat-dialog-content class="mat-typography flex mx-auto w-full">
+  <form [formGroup]="editUserForm" class="flex flex-col w-full">
+    <mat-form-field>
+      <mat-label>Nombre</mat-label>
+      <input matInput type="text" [value]="userData.nombre" formControlName="nombre"/>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Apellido Paterno</mat-label>
+      <input matInput type="text" [value]="userData.apellidoPaterno" formControlName="apellidoPaterno"/>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Apellido Materno</mat-label>
+      <input matInput type="text" [value]="userData.apellidoMaterno" formControlName="apellidoMaterno"/>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Tipo</mat-label>
+      <input matInput type="text" [value]="userData.tipo" formControlName="tipo"/>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="center">
+  <button mat-stroked-button mat-dialog-close>Cancelar</button>
+  <button mat-raised-button color="accent" [mat-dialog-close]="true" cdkFocusInitial (click)="updateUser( userData.id )">Actualizar</button>
+</mat-dialog-actions>
